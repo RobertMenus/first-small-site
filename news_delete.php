@@ -13,7 +13,7 @@ if (isset($_GET['id'])) {
 	$result = $db->prepare("DELETE FROM news WHERE id = :id");
 	$result->bindParam(':id',$id);
 	$db = null;
-	header('Location: news.php');
+	header('Location: index.php');
 	}
 else
 {header('Location: index.php'); $db = null; exit();}
