@@ -51,7 +51,7 @@ if ($result == true)
 {
 	echo '<p>Successfully updated.</p>';
 	echo "<p>Press <a href = 'news_view.php?id=$id'>here</a> to watch it.</p>";
-	echo 'Or <a href = "news.php">here</a> to watch all news.';
+	echo 'Or <a href = "index.php">here</a> to watch all news.';
 }
 else
 {

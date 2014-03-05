@@ -3,7 +3,7 @@ include './blocks/db.php';
 if (isset($_GET['id'])) {$id = $_GET['id'];}
 if (($id == '') or (!is_numeric($id)) or ($id<1)){
 		unset($id);
-		header('Location: news.php');}
+		header('Location: index.php');}
 $result = $db->prepare("SELECT * FROM news WHERE id= :id");
 $result->bindParam(':id',$id,PDO::PARAM_INT);
 $result->execute();
