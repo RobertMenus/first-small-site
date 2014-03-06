@@ -5,12 +5,15 @@
 	<?php 
 	session_start();
 	if (isset($_SESSION['works'])) {
-		
 		echo "<a href = 'news_new.php'>Add news</a><br>";
-		
 		echo "<p>Hello, ".$_SESSION['works']."!</p>";
-		echo "<p><a href = 'blocks/logout.php'>Say bye!</a></p>";
-		
+		$id_1 = $_SESSION['id'];
+		echo "<p><a href = 'user_view.php?id=$id_1'>View profile</a><br>";
+		echo "<a href = 'editme.php?id=$id_1'>Edit profile</a><br>";
+		unset($id_1);
+		echo "<a href = 'blocks/logout.php'>Say bye!</a></p>";
+		if ($_SESSION['class'] == 'admin')
+		{echo "<p><a href = 'userlist.php'>User list</a></	p>";}
 	} else {
 		echo '<p>You have to log in</p>';
 		echo '<form method = "post" action = "blocks/auth.php">';
@@ -22,6 +25,7 @@
 		echo '<tr><td align = "right">
 		<input type = "submit" value = "Enter"></td></tr>';
 		echo '</table></form>';
+		echo "<p><a href='reg.php'>Isn't registered?</a></p>";
 	}
 	?>
 </td>

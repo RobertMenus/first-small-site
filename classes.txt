@@ -1,0 +1,8 @@
+Classes of users
+
+user
+editor
+admin
+banned
+anonym
+

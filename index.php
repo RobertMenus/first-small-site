@@ -9,7 +9,9 @@ function get_pager($resulto)
  	while ($getnews = $resulto->fetch(PDO::FETCH_ASSOC)) {
 		$table .= "<tr>\n";
 		$table .= "<td><h4><center><a href='news_view.php?id=".$getnews['id']."'>".$getnews['title']."</a></center></h4>\n";
-		$table .= "<p align = 'right'><i>by ".$getnews['author']."</i></p>\n";
+		$table .= "<p align = 'right'>
+		<a href='user_view.php?l=".$getnews['author']."'>
+		<i>by ".$getnews['author']."</i></a></p>\n";
 		$table .= "<p align = 'right'>".$getnews['date']."</p>\n";
 
 	if (strlen($getnews['text'])>150)

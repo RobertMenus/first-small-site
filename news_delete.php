@@ -12,6 +12,7 @@ if (isset($_GET['id'])) {
 	//$result = mysql_query("DELETE FROM news WHERE id = $id") or die(mysql_error());
 	$result = $db->prepare("DELETE FROM news WHERE id = :id");
 	$result->bindParam(':id',$id);
+	$result->execute();
 	$db = null;
 	header('Location: index.php');
 	}

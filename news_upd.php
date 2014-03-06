@@ -20,8 +20,7 @@ if (isset($_POST['author'])){
 	if ($author == '') {$author = 'Anonymous';}}
 
 $id = $_SESSION['cid'];
-//if (!isset($id)) {header("Location: index.php"); exit(); }
-//echo "<p>id = $id</p>";
+unset($_SESSION['cid']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,9 +36,6 @@ $id = $_SESSION['cid'];
 ?>
 <td valign = top>
 <?php 
-//$query = "UPDATE news SET title = '$title', date = '$date', text = '$text', author = '$author' WHERE id = $id";
-//$result = mysql_query($query,$db) or die(mysql_error());
-unset($_SESSION['cid']);
 $result = $db->prepare("UPDATE news SET title = :title, date = :date, text = :text, author = :author WHERE id = :id");
 $result->bindParam(':title',$title);
 $result->bindParam(':date',$date);

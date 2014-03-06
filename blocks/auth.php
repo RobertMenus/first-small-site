@@ -2,7 +2,8 @@
 include "db.php";
 $login = $_POST['login'];
 try{
-$res = $db->prepare("SELECT * FROM users WHERE (login = :login or email = :login)");
+$res = $db->prepare("SELECT id, login, email, pass, class 
+	FROM users WHERE (login = :login or email = :login)");
 $res->bindParam(':login',$login);
 $res->execute();
 $logrow = $res->fetch(PDO::FETCH_ASSOC);
@@ -10,11 +11,11 @@ $logrow = $res->fetch(PDO::FETCH_ASSOC);
 catch (PDO_exception $e)
 {die ("Error:".$e->getMessage());}
 $passw = $_POST['pass'];
-if (($logrow['login'] == $login or
-	 $logrow['email'] == $login) and
-	 $logrow['pass'] == $passw) {
+if ($logrow['pass'] == $passw) {
 	session_start();
 	$_SESSION['works'] = $logrow['login'];
+	$_SESSION['id'] = $logrow['id'];
+	$_SESSION['class'] = $logrow['class'];
 	header('Location: ../index.php');} 
 	else {
 	echo '<p><b>Login/Password is incorrect</b></font></p>';

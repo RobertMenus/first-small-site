@@ -32,7 +32,10 @@ $db = null;
  <a href = 'news_delete.php?id=$id'>Delete me</a></p>";}
  ?>
  <h1 align = 'center'><?php echo $my_row['title']; ?></h1>
- <p align = 'right'><i><?php echo $my_row['author']; ?></i><br>
+ <p align = 'right'><i>
+ 	<?php 
+ 	echo "<a href='user_view.php?l=".$my_row['author']."'>".$my_row['author']."</a>"; 
+ 	?></i><br>
  	<?php echo $my_row['date']; ?></p>
  <p><?php echo $my_row['text']; ?></p>
  <p>&nbsp</p>
