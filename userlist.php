@@ -24,11 +24,11 @@ if ($_SESSION['class']!=="admin")
           <table border="1px">
           <tr><th width = '300'>Name</th><th width = '100'></th><th width="100"></th></tr>
           <?php 
-          $result = $db->query("SELECT login FROM users");
+          $result = $db->query("SELECT id, login FROM users");
           while ($ne_row = $result->fetch(PDO::FETCH_ASSOC))
           {
-          	echo "<tr><td>".$ne_row['login']."</td>";
-          	echo "<td align = 'center'>Edit</td>";
+          	echo "<tr><td><a href ='user_view.php?l=".$ne_row['login']."'>".$ne_row['login']."</td>";
+          	echo "<td align = 'center'><a href = 'editme.php?id=".$ne_row['id']."'>Edit</td>";
           	echo "<td align = 'center'><a href = 'userdelete.php?l=".$ne_row['login']."'>Remove</a></td>";
           	echo "</tr>";
           }?>

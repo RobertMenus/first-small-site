@@ -1,7 +1,7 @@
 <?php
 include './blocks/db.php';
 session_start();
-if (!isset($_SESSION['works']))
+if (!isset($_SESSION['works']) and ($_SESSION['class']!='admin' or $_SESSION['class']!='editor'))
 {
 	header('location: index.php');
 	exit();

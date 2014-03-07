@@ -12,8 +12,8 @@ if (isset($_GET['l'])) {
 	$result = $db->prepare("DELETE FROM users WHERE login = :l");
 	$result->bindParam(':l',$l);
 	$result->execute();
-	unlink("images/".$l.".jpg");
-	unlink("images/mini/".$l.".jpg");
+	//unlink("images/".$l.".jpg");
+	//unlink("images/mini/".$l.".jpg");
 	$db = null;
 	header('Location: userlist.php');
 	}

@@ -5,7 +5,8 @@
 	<?php 
 	session_start();
 	if (isset($_SESSION['works'])) {
-		echo "<a href = 'news_new.php'>Add news</a><br>";
+		if (($_SESSION['class'] == 'admin') or ($_SESSION['class'] == 'editor')){
+		echo "<a href = 'news_new.php'>Add news</a><br>";}
 		echo "<p>Hello, ".$_SESSION['works']."!</p>";
 		$id_1 = $_SESSION['id'];
 		echo "<p><a href = 'user_view.php?id=$id_1'>View profile</a><br>";

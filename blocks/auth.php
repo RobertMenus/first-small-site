@@ -13,9 +13,18 @@ catch (PDO_exception $e)
 $passw = $_POST['pass'];
 if ($logrow['pass'] == $passw) {
 	session_start();
+	$_SESSION['class'] = $logrow['class'];
+	if ($_SESSION['class']=='banned')
+	{
+		header("Location: ../banned.php");
+		exit();
+	}
 	$_SESSION['works'] = $logrow['login'];
 	$_SESSION['id'] = $logrow['id'];
-	$_SESSION['class'] = $logrow['class'];
+	$result = $db->prepare("UPDATE users SET lastlog=:lastlog WHERE id = :id");
+	$result->bindParam(':lastlog',date('Y-m-d'));
+	$result->bindParam(':id',$_SESSION['id']);
+	$result->execute();
 	header('Location: ../index.php');} 
 	else {
 	echo '<p><b>Login/Password is incorrect</b></font></p>';
