@@ -52,30 +52,30 @@ $row = $result->fetch(PDO::FETCH_ASSOC);
 ?>
 <td valign = 'top'>
  <?php 
-		if (isset($title,$text,$date,$author))
+		if (isset($title,$text_en,$text_ua,$date,$author))
 		{
 
-		$result = $db->prepare("INSERT into news (title, author, date, text) 
+		$result = $db->prepare("INSERT into news (title, author, date, text_en,text_ua) 
 			VALUES (:title,:author,:date,:langs,:text_en,:text_ua)");
-		$result:bindParam(':title',$title);
-		$result:bindParam(':author',$author);
-		$result:bindParam(':date',$date);
-		$result:bindParam(':langs',$langs;
-		$result:bindParam(':text_en',$text_en);
-		$result:bindParam(':text_ua',$text_ua);
-		$result:execute();
+		$result->bindParam(':title',$title);
+		$result->bindParam(':author',$author);
+		$result->bindParam(':date',$date);
+		$result->bindParam(':langs',$langs;
+		$result->bindParam(':text_en',$text_en);
+		$result->bindParam(':text_ua',$text_ua);
+		$result->execute();
 		
 		if ($result) {
 			echo $row['success']; 
 			$res = $db->prepare("SELECT * FROM news WHERE title = :title
 				and author = :author and date = :date and text_en=:text_en 
 				and text_ua = :text_ua");
-			$res:bindParam(':title',$title);
-			$res:bindParam(':author',$author);
-			$res:bindParam(':date',$date);
-			$res:bindParam(':text_en',$text);
-			$res:bindParam(':text_ua',$text);
-			$res:execute();
+			$res->bindParam(':title',$title);
+			$res->bindParam(':author',$author);
+			$res->bindParam(':date',$date);
+			$res->bindParam(':text_en',$text);
+			$res->bindParam(':text_ua',$text);
+			$res->execute();
 			
 			$lastid = $res->fetch(PDO::FETCH_ASSOC);
 			$idlast = $lastid['id'];

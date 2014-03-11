@@ -49,10 +49,28 @@ $my_row = $result->fetch(PDO::FETCH_ASSOC);
  	<?php echo $my_row['date']; ?></p>
  <p><?php echo $my_row['text_'.$lang]; ?></p>
  <p>&nbsp</p>
-</td>
-</tr>
-
-</table>
+ <form method = 'post' action = 'addcom.php'>
+ <center>
+ <table width="400" border = '1'>
+ 		<tr><td><?php echo $row['theme'];?>:</td> 
+            <td><input type="text" name="theme" id="theme"></td></tr>
+        <tr><td><?php echo $row['date'];?>:</td>
+            <td>[<?php echo date('Y-m-d')?>]</td></tr>
+        <tr><td><?php echo $row['text'];?></td>
+            <td><textarea name="text" id="text" cols="31"></textarea>
+            <input type="hidden" value = "<?php echo $id; ?>" name= 'postnumb' id= 'postnumb'>
+            </td></tr>
+        <tr><td><?php echo $row['author'];?>:</td>
+            <td><i><?php echo $_SESSION['works']?></i></td></tr>
+        <tr><td colspan = '2' align="right">
+            <input type="submit" name="submit" id="submit" value="<?php echo $row['addit'];?>">
+        </td></tr>
+ </form>
+ <?php 
+ 
+ ?>
+</td></tr>
+</table></center>
 
 </body>
 
