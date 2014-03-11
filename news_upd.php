@@ -6,52 +6,75 @@ if (!isset($_SESSION['works']))
 	header('Location: index.php');
 	exit();
 }
-if (isset($_POST['title'])) {
+$langs = '';
+if ((isset($_POST['title'])) and ($_POST['title'] <> '')) {
 	$title = $_POST['title']; 
-	if ($title == '') {$title = ' ';}}
-if (isset($_POST['date'])) 	{
+	}
+if ((isset($_POST['date'])) and ($_POST['date'] <> '')) {
 	$date = $_POST['date']; 
-	if ($date == '') {$date = date('Y-m-d');}}
-if (isset($_POST['text'])) 	{
-	$text = $_POST['text']; 
-	if ($text == '') {$text = ' ';}}
-if (isset($_POST['author'])){
+	}
+if ((isset($_POST['text_en'])) and (!empty($_POST['text_en']))) {
+	$langs .= 'en;';
+	$text_en = $_POST['text_en']; 
+	}
+	else
+		{$text_en = '';}
+if ((isset($_POST['text_ua'])) and (!empty($_POST['text_ua']))) {
+	$langs .= 'ua;';
+	$text_ua = $_POST['text_ua']; 
+	}
+	else
+		{$text_ua = '';}
+if ((isset($_POST['author'])) and ($_POST['author'] <> '')) {
 	$author = $_POST['author']; 
-	if ($author == '') {$author = 'Anonymous';}}
+	}
 
 $id = $_SESSION['cid'];
 unset($_SESSION['cid']);
+
+if (isset($_SESSION['lang']))
+	{$lang = $_SESSION['lang'];}
+else
+	{$lang = 'en';}
+$result = $db->prepare('SELECT * FROM trans_news_upd WHERE lang = :lang');
+$result->bindParam(':lang',$lang);
+$result->execute();
+$row = $result->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
 <head><meta content = "text/html" charset = "UTF-8">
-<title>Editing</title></head>
+<title><?php echo $row['updating'];?></title></head>
 
 <body background="img/bg.gif">
 
 <table border="1px" width="100%" bgcolor=#cccccc>
+<?php include './blocks/langbar.php'; ?>
 <tr>
 <?php 
 	include './blocks/logmenu.php'; 
 ?>
 <td valign = top>
 <?php 
-$result = $db->prepare("UPDATE news SET title = :title, date = :date, text = :text, author = :author WHERE id = :id");
+$result = $db->prepare("UPDATE news SET title = :title, date = :date, text_ua = :textua, 
+	text_en = :texten, author = :author, langs = :langs WHERE id = :id");
 $result->bindParam(':title',$title);
 $result->bindParam(':date',$date);
-$result->bindParam(':text',$text);
+$result->bindParam(':texten',$text_en);
+$result->bindParam(':textua',$text_ua);
 $result->bindParam(':author',$author);
+$result->bindParam(':langs',$langs);
 $result->bindParam(':id',$id);
 $result->execute();
-if ($result == true)
+if ($result)
 {
-	echo '<p>Successfully updated.</p>';
-	echo "<p>Press <a href = 'news_view.php?id=$id'>here</a> to watch it.</p>";
-	echo 'Or <a href = "index.php">here</a> to watch all news.';
+	echo "<p>".$row['success']."</p>";
+	echo "<p><a href = 'news_view.php?id=$id'>".$row['presshere']."</a> ".$row['towatchit']."</p>";
+	echo "<a href = 'index.php'>".$row["orhere"]."</a> ".$row['allnews'];
 }
 else
 {
-	echo '<p>Something is wrong.</p>';
+	echo "<p>".$row['smthwrong']."</p>";
 }
 unset($id);
 ?>

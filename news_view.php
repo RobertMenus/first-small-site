@@ -1,15 +1,25 @@
 <?php
+ session_start();
 include './blocks/db.php';
 if (isset($_GET['id'])) {$id = $_GET['id'];}
 if (($id == '') or (!is_numeric($id)) or ($id<1)){
 		unset($id);
 		header('Location: index.php');}
+
+if (isset($_SESSION['lang']))
+	{$lang = $_SESSION['lang'];}
+else
+	{$lang = 'en';}
+$result = $db->prepare('SELECT * FROM trans_news_view WHERE lang = :lang');
+$result->bindParam(':lang',$lang);
+$result->execute();
+$row = $result->fetch(PDO::FETCH_ASSOC);
+
 $result = $db->prepare("SELECT * FROM news WHERE id= :id");
 $result->bindParam(':id',$id,PDO::PARAM_INT);
 $result->execute();
-
 $my_row = $result->fetch(PDO::FETCH_ASSOC);
-$db = null;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,6 +29,7 @@ $db = null;
 <body background="img/bg.gif">
 
 <table border="1px" width="100%" bgcolor=#cccccc>
+<?php include './blocks/langbar.php'; ?>
 <tr>
 <?php 
 	include './blocks/logmenu.php'; 
@@ -26,10 +37,9 @@ $db = null;
 <td valign = top>
  <p align = 'right'>
  <?php
- session_start();
  if ($_SESSION['works']){
- echo "<a href = 'news_edit.php?id=$id'>Edit me</a>&nbsp &nbsp
- <a href = 'news_delete.php?id=$id'>Delete me</a></p>";}
+ echo "<a href = 'news_edit.php?id=$id'>".$row['edit me']."</a>&nbsp &nbsp
+ <a href = 'news_delete.php?id=$id'>".$row['delete me']."</a></p>";}
  ?>
  <h1 align = 'center'><?php echo $my_row['title']; ?></h1>
  <p align = 'right'><i>
@@ -37,7 +47,7 @@ $db = null;
  	echo "<a href='user_view.php?l=".$my_row['author']."'>".$my_row['author']."</a>"; 
  	?></i><br>
  	<?php echo $my_row['date']; ?></p>
- <p><?php echo $my_row['text']; ?></p>
+ <p><?php echo $my_row['text_'.$lang]; ?></p>
  <p>&nbsp</p>
 </td>
 </tr>

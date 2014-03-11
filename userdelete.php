@@ -14,7 +14,6 @@ if (isset($_GET['l'])) {
 	$result->execute();
 	//unlink("images/".$l.".jpg");
 	//unlink("images/mini/".$l.".jpg");
-	$db = null;
 	header('Location: userlist.php');
 	}
 else

@@ -27,7 +27,7 @@ if ($logrow['pass'] == $passw) {
 	$result->execute();
 	header('Location: ../index.php');} 
 	else {
-	echo '<p><b>Login/Password is incorrect</b></font></p>';
+	echo '<p><b>Login/Password is incorrect</b></p>';
 	echo '<form method = "post" action = "auth.php">';
 	echo '<table>';
 	echo '<tr><td>Login/Email:<br>';

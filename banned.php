@@ -12,6 +12,7 @@ if ($_SESSION['class'] != 'banned')
 
 <body background="img/bg.gif">
 <table border="1px" width="100%" bgcolor=#cccccc>
+<?php include './blocks/langbar.php'; ?>
 <tr>
 <?php 
 	include ("blocks/logmenu.php"); 

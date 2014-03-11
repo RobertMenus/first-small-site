@@ -39,6 +39,7 @@ if ($pass1 != $pass2) {
 <body background="img/bg.gif">
 
 <table border="1px" width="100%" bgcolor=#cccccc>
+<?php include './blocks/langbar.php'; ?>
 <tr>
 <?php 
 	include './blocks/logmenu.php'; 
@@ -135,11 +136,10 @@ else
 
 try{
 if ($pass1 == ''){ 
-	$result = $db->prepare("UPDATE users SET login = :login, email = :mail, surname = :surname, name = :name, ava=:ava, class = :class WHERE id = :id");
+	$result = $db->prepare("UPDATE users SET email = :mail, surname = :surname, name = :name, ava=:ava, class = :class WHERE id = :id");
 }
-else{$result = $db->prepare("UPDATE users SET login = :login, email = :mail, pass = :pass, surname = :surname, name = :name, ava=:ava, class = :class WHERE id = :id");
+else{$result = $db->prepare("UPDATE users SET email = :mail, pass = :pass, surname = :surname, name = :name, ava=:ava, class = :class WHERE id = :id");
 $result->bindParam(":pass",$pass1);}
-$result->bindParam(":login",$login);
 $result->bindParam(":mail",$mail);
 $result->bindParam(":surname",$surname);
 $result->bindParam(":name",$name);

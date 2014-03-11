@@ -22,15 +22,24 @@ else
 	header('Location: index.php');
 	exit();
 }
+if (isset($_SESSION['lang']))
+  {$lang = $_SESSION['lang'];}
+else
+  {$lang = 'en';}
+$result = $db->prepare('SELECT * FROM trans_prof_edit WHERE lang = :lang');
+$result->bindParam(':lang',$lang);
+$result->execute();
+$row = $result->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
 <head><meta content = "text/html" charset = "UTF-8">
-<title><?php echo $ne_row['login'];?>:Editing</title></head>
+<title><?php echo $ne_row['login'].":".$row['editing'];?></title></head>
 
 <body background="img/bg.gif">
 
 <table border="1px" width="100%" bgcolor=#cccccc>
+<?php include './blocks/langbar.php'; ?>
 <tr>
 <?php 
 	include './blocks/logmenu.php'; 
@@ -47,25 +56,26 @@ else
             {echo "'img/unknown.jpg'";}
             ?>
             />
-          </td><td>
+          </td><td width="200">
           <input type = "hidden" name = "id" id="id" value=<?php echo $ne_row['id']; ?>>
           <input type="file" name="ava" id="ava">
             </td></tr>
-          <tr><td>Login</td><td>
-          <input type="text" name="login" id="login" value = "<?php echo $ne_row['login'];?>">
+          <tr><td><?php echo $row['login'];?></td><td>
+          <?php echo $ne_row['login'];?>
+          <input type = "hidden" name = "login" value="<?php echo $ne_row['login'];?>">
             </td></tr>
-          <tr><td>E-mail</td>
+          <tr><td><?php echo $row['email'];?></td>
             <td><input type="text" name="mail" id="mail" value="<?php echo $ne_row['email'];?>">
             </td></tr>
-          <tr><td>Surname</td><td>
+          <tr><td><?php echo $row['surname'];?></td><td>
             <input type="text" name="surname" id="surname" value="<?php echo $ne_row['surname'];?>">
             </td></tr>
-          <tr><td>Name</td><td>
+          <tr><td><?php echo $row['name'];?></td><td>
             <input type="text" name="name" id="name" value="<?php echo $ne_row['name'];?>">
             </td></tr>
           <?php 
             if ($_SESSION['class'] == 'admin'){
-            echo "<tr><td>Class</td><td>";
+            echo "<tr><td>".$row['class']."</td><td>";
             echo "<select name = 'class'>";
             $classes = array('banned','user','editor','admin');
             for ($i=0; $i < 4; $i++) { 
@@ -83,18 +93,18 @@ else
                     </td></tr>";
             }
             ?>
-          <tr><td>New password</td><td>
+          <tr><td><?php echo $row['newpassword'];?></td><td>
             <input type="text" name="pass" id="pass" value="">
             </td></tr>
-          <tr><td>Reenter new password</td><td>
+          <tr><td><?php echo $row['reenter'];?></td><td>
             <input type="text" name="pass2" id="pass2" value="">
             </td></tr>
-          <tr><td>Enter your old password<br>
-              <i>(type it if you wanna <br>change smth)</i></td><td>
+          <tr><td><?php echo $row['enterold'];?><br>
+              <i><?php echo $row['eo_tip'];?></i></td><td>
             <input type="password" name="oldpass" id="oldpass"></td></tr>
           <tr><td></td>
             <td align = "right">
-            <input type="submit" name="submit" id="submit" value="Update profile">
+            <input type="submit" name="submit" id="submit" value="<?php echo $row['update']?>">
             </td></tr>
           </table>
           <?php 

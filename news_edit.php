@@ -21,16 +21,31 @@ else
 	header('Location: index.php');
 	exit();
 }
-
+if (isset($_SESSION['lang']))
+  {$lang = $_SESSION['lang'];}
+else
+  {$lang = 'en';}
+$result = $db->prepare("SELECT 
+    trans_prof_edit.editing,
+    trans_news_new.title,
+    trans_news_new.date,
+    trans_news_new.text_en,
+    trans_news_new.text_ua,
+    trans_news_new.author,
+    trans_prof_edit.update
+  FROM trans_news_new,trans_prof_edit WHERE trans_news_new.lang = :lang and trans_prof_edit.lang = :lang");
+$result->bindParam(':lang',$lang);
+$result->execute();
+$row = $result->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
 <head><meta content = "text/html" charset = "UTF-8">
-<title>Editing</title></head>
+<title><?php echo $row['editing'];?></title></head>
 
 <body background="img/bg.gif">
-
 <table border="1px" width="100%" bgcolor=#cccccc>
+<?php include './blocks/langbar.php'; ?>
 <tr>
 <?php 
 	include './blocks/logmenu.php'; 
@@ -38,27 +53,32 @@ else
 <td valign = top>
 <form name="upd_form" method="post" action="news_upd.php">
  <p>
-            <label>Title<br>
+            <label><?php echo $row['title'];?><br>
             <input type="text" name="title" id="title" value = "<?php echo $ne_row['title']; ?>"	></label>
           </p>
           <p>    
-            <label>Date<br>
+            <label><?php echo $row['date'];?><br>
             <input type="text" name="date" id="date" value="<?php echo $ne_row['date'];?>">
             </label>
           </p>
           <p>
-            <label>Text<br>
-            <textarea name="text" id="text" cols="60" rows="20"><?php echo $ne_row['text']; ?></textarea>
+            <label><?php echo $row['text_en'];?><br>
+            <textarea name="text_en" id="text_en" cols="60" rows="20"><?php echo $ne_row['text_en']; ?></textarea>
             </label>
           </p>
           <p>
-            <label>Author<br>
+            <label><?php echo $row['text_ua'];?><br>
+            <textarea name="text_ua" id="text_ua" cols="60" rows="20"><?php echo $ne_row['text_ua']; ?></textarea>
+            </label>
+          </p>
+          <p>
+            <label><?php echo $row['author'];?><br>
             <input type="text" name="author" id="author" value="<?php echo $ne_row['author']; ?>">
             </label>
           </p>
           <p>
             <label>
-            <input type="submit" name="submit" id="submit" value="Update it">
+            <input type="submit" name="submit" id="submit" value="<?php echo $row['update'];?>">
             </label>
           </p>
         </form>
