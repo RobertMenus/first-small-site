@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="style.css">
 <?php 
 include "db.php";
 $login = $_POST['login'];

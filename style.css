@@ -1,0 +1,40 @@
+table
+{background-image: url(img/back_table.png);}
+body{
+	background-image: url(img/back.jpg);
+	font-family: TimesNewRoman;
+	font-size: 16px;
+	color: #55EE55;
+}
+a:link{color: #55EE55;}
+a:active{color: #00EE00;}
+a:visited{color: #55EE55;}
+h1{
+	font-weight: bold;
+	font-size: 32px;
+}
+#menu a{
+	text-decoration: none;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border:1px solid #559955;
+}
+#menu td{
+	text-decoration: none;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border:1px solid #559955;
+}
+#hello {
+	font-weight: bold;
+	color: #66FF66;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 4px;
+	padding-bottom: 8px;
+	border:2px solid #559955;
+}

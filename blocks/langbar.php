@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="style.css">
 <tr>
 <td colspan="2" align="right">
 	<a href = './blocks/lang.php?l=ua'><img src="./img/UA.jpg"></a>

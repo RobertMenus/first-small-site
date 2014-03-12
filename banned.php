@@ -8,9 +8,9 @@ if ($_SESSION['class'] != 'banned')
 <!DOCTYPE html>
 <html>
 <head><meta content = "text/html" charset = "UTF-8">
-<title>Main page</title></head>
+<title>Main page</title><link rel="stylesheet" type="text/css" href="style.css"><link rel="icon" type="image/jpg" href="favicon.jpg" /></head>
 
-<body background="img/bg.gif">
+<body  >
 <table border="1px" width="100%" bgcolor=#cccccc>
 <?php include './blocks/langbar.php'; ?>
 <tr>

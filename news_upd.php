@@ -44,9 +44,10 @@ $row = $result->fetch(PDO::FETCH_ASSOC);
 <!DOCTYPE html>
 <html>
 <head><meta content = "text/html" charset = "UTF-8">
-<title><?php echo $row['updating'];?></title></head>
+<title><?php echo $row['updating'];?></title>
+<link rel="stylesheet" type="text/css" href="style.css"><link rel="icon" type="image/jpg" href="favicon.jpg" /></head>
 
-<body background="img/bg.gif">
+<body  >
 
 <table border="1px" width="100%" bgcolor=#cccccc>
 <?php include './blocks/langbar.php'; ?>

@@ -34,9 +34,10 @@ if ($pass1 != $pass2) {
 <!DOCTYPE html>
 <html>
 <head><meta content = "text/html" charset = "UTF-8">
-<title>Editing</title></head>
+<title>Editing</title>
+<link rel="stylesheet" type="text/css" href="style.css"><link rel="icon" type="image/jpg" href="favicon.jpg" /></head>
 
-<body background="img/bg.gif">
+<body  >
 
 <table border="1px" width="100%" bgcolor=#cccccc>
 <?php include './blocks/langbar.php'; ?>
