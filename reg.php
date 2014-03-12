@@ -13,7 +13,8 @@ include './blocks/db.php';
 <tr>
 <?php include './blocks/logmenu.php'; ?>
 <td><h3>Register yourself</h3>
-	<form method = "post" action = "blocks/regcheck.php">
+	<form name = 'regfield' method = "post" action = "blocks/regcheck.php" 
+	onsubmit="return checkForm()">
 	<div id = 'menu'>
 	<table>
 	<tr><td>Login:</td>
@@ -26,7 +27,30 @@ include './blocks/db.php';
 	<td><input type = "text" name = "pass2" maxlength = 64 size = 25></td></tr>
 	<tr><td colspan="2" align = "right"><input type = "submit" value = "Register"></td></tr>
 	</table></div></form>
-	
+	<script type="text/javascript">
+	function checkForm(){
+		if (regfield.login.value.length <= 3)
+		{
+			alert('too short login');
+			return false;
+		}
+		if(! (/^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/.test(regfield.mail.value))){
+			alert("e-mail error!");
+			return false;
+		}
+		if (regfield.pass.value.length ==0)
+		{
+			alert('password is not set');
+			return false;
+		}
+		if (regfield.pass.value != regfield.pass2.value)
+		{
+			alert('passwords do not match!');
+			regfield.pass2.focus();
+			return false;
+		}
+	}
+	</script> 
 	<?php 
 	if ($_GET['e']==1){
 	echo "<p><font color='red'>
